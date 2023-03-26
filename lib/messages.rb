@@ -23,4 +23,5 @@ Sorry, better luck next time\n\n",
     char_mismatch_message: "Please enter only a single letter, alphanumeric",
     bad_guess: "The word does not contain the letter %{insert}",
     good_guess: "The word contains the letter %{insert}",
+    play_again: "Would you like to play again?",
 }

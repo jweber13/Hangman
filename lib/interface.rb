@@ -5,6 +5,7 @@ include Display
 
     def initialize(game)
         @game = game
+        Display.init_curses
     end
   
     def play
@@ -13,7 +14,7 @@ include Display
             Display.draw_word(@game.word, @game.guessed_letters)
             Display.show_guesses(@game.guessed_letters)
             Display.show_count(@game.wrong_guesses)
-            letter = get_user_input
+            letter = Display.get_user_input
             result = @game.guess(letter)
             handle_game_result(result)
             break if @game.game_over?
@@ -21,27 +22,35 @@ include Display
     end
 
     def display_instructions
-        puts MESSAGES[:welcome]
-        puts MESSAGES[:instructions]
+        Display.show_message(MESSAGES[:welcome])
+        Display.show_context(MESSAGES[:instructions])
+        #puts MESSAGES[:welcome]
+        #puts MESSAGES[:instructions]
     end
-
+=begin
     def get_user_input
-        puts MESSAGES[:enter_letter_prompt]
+        #puts MESSAGES[:enter_letter_prompt]
         gets.chomp.downcase
     end
+=end
 
     def handle_game_result(result)
         case result
         when :win
-            puts MESSAGES[:win_message]
+            Display.show_message(MESSAGES[:win_message])
+            #puts MESSAGES[:win_message]
         when :lose
-            puts MESSAGES[:lose_message] % { insert: @game.word}
+            Display.show_message(MESSAGES[:lose_message] % { insert: @game.word})
+            #puts MESSAGES[:lose_message] % { insert: @game.word}
         when :char_mismatch
-            puts MESSAGES[:char_mismatch_message]
+            Display.show_message(MESSAGES[:char_mismatch_message])
+            #puts MESSAGES[:char_mismatch_message]
         when :duplicate_guess
-            puts MESSAGES[:duplicate_guess_message] % { insert: @game.last_guess}
+            Display.show_message(MESSAGES[:duplicate_guess_message] % { insert: @game.last_guess})
+            #puts MESSAGES[:duplicate_guess_message] % { insert: @game.last_guess}
         when :bad_guess
-            puts MESSAGES[:bad_guess] % { insert: @game.last_guess}
+            Display.show_message(MESSAGES[:bad_guess] % { insert: @game.last_guess})
+            #puts MESSAGES[:bad_guess] % { insert: @game.last_guess}
             #puts format(MESSAGES[:bad_guess_message], letter: @game.last_guess)
         end
     end

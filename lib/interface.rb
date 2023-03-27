@@ -27,10 +27,7 @@ include Display
             Display.refresh_display
         end
         while @is_playing do
-            Display.draw_word(@game.word, @game.guessed_letters)
-            Display.show_guesses(@game.guessed_letters)
-            Display.show_count(@game.wrong_guesses)
-            Display.save_quit_query
+            disp_all
             letter = Display.get_user_input
             result = @game.guess(letter)
             handle_game_result(result)
@@ -40,6 +37,14 @@ include Display
                 again == "y" ? restart : @is_playing = false
             end
         end
+    end
+
+    def disp_all
+        Display.draw_word(@game.word, @game.guessed_letters)
+        Display.show_guesses(@game.guessed_letters)
+        Display.show_count(@game.wrong_guesses)
+        Display.save_quit_query
+        Display.draw_hangman(@game.wrong_guesses)
     end
 
     def load_and_deserialize
@@ -67,6 +72,7 @@ include Display
             #puts MESSAGES[:win_message]
         when :lose
             Display.show_message(MESSAGES[:lose_message] % { insert: @game.word})
+            disp_all
             #puts MESSAGES[:lose_message] % { insert: @game.word}
         when :char_mismatch
             Display.show_message(MESSAGES[:char_mismatch_message])
@@ -76,6 +82,7 @@ include Display
             #puts MESSAGES[:duplicate_guess_message] % { insert: @game.last_guess}
         when :bad_guess
             Display.show_message(MESSAGES[:bad_guess] % { insert: @game.last_guess})
+            disp_all
             #puts MESSAGES[:bad_guess] % { insert: @game.last_guess}
         when :save
             save_and_serialize

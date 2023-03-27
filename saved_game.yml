@@ -1,11 +1,10 @@
 ---
-:word: evaluate
+:word: proven
 :guessed_letters:
 - a
+- v
 - b
 - c
-- d
-- e
 :words_arr:
 - the
 - of
@@ -9901,5 +9900,5 @@
 - mediawiki
 - configurations
 - poison
-:last_guess: e
+:last_guess: c
 :wrong_guesses: 3

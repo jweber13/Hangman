@@ -17,6 +17,8 @@ include Display
   
     #primary game loop
     def play
+        Display.show_message(MESSAGES[:welcome])
+        display_instructions
         ln = Display.load_or_new
         if ln == 'l'
             load_and_deserialize
@@ -24,12 +26,11 @@ include Display
         elsif ln == 'n'
             Display.refresh_display
         end
-        display_instructions
         while @is_playing do
             Display.draw_word(@game.word, @game.guessed_letters)
             Display.show_guesses(@game.guessed_letters)
             Display.show_count(@game.wrong_guesses)
-            Display.user_query
+            Display.save_quit_query
             letter = Display.get_user_input
             result = @game.guess(letter)
             handle_game_result(result)

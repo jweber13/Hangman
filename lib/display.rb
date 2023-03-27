@@ -12,9 +12,9 @@ include Curses
     end
 
     def self.load_or_new
-        Curses.setpos(1,0)
+        Curses.setpos(14,0)
         Curses.addstr("New game or Load game? ('n' / 'l')")
-        Curses.setpos(2,0)
+        Curses.setpos(15,0)
         Curses.addstr(">")
         Curses.getstr.chomp
     end
@@ -47,7 +47,7 @@ include Curses
     end
 
     def self.show_context(msg)
-        Curses.setpos(12,0)
+        Curses.setpos(3,0)
         Curses.addstr(msg)
     end
 
@@ -58,7 +58,7 @@ include Curses
         Curses.getstr.chomp
     end
 
-    def self.user_query
+    def self.save_quit_query
         Curses.setpos(9,0)
         Curses.addstr("type 'save' to save game and exit, 'quit' to end game.")
     end

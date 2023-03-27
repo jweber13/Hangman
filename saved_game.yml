@@ -1,9 +1,11 @@
 ---
-:word: pocket
+:word: evaluate
 :guessed_letters:
 - a
 - b
 - c
+- d
+- e
 :words_arr:
 - the
 - of
@@ -9899,5 +9901,5 @@
 - mediawiki
 - configurations
 - poison
-:last_guess: c
-:wrong_guesses: 2
+:last_guess: e
+:wrong_guesses: 3

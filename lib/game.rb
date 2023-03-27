@@ -1,4 +1,5 @@
 require_relative 'messages'
+require 'yaml'
 
 class Game
 include Display
@@ -24,9 +25,31 @@ include Display
         @last_guess = " "
     end
 
+    def save_game
+        #serialize & return the current state of the game
+        @save_state = {
+            :word => @word,
+            :guessed_letters => @guessed_letters,
+            :words_arr => @words_arr,
+            :last_guess => @last_guess,
+            :wrong_guesses => @wrong_guesses
+        }
+        return @save_state
+    end
+
+    def load_game(state, extra=nil)
+        @word = state[:word]
+        @guessed_letters = state[:guessed_letters]
+        @words_arr = state[:words_arr]
+        @last_guess = state[:last_guess]
+        @wrong_guesses = state[:wrong_guesses]
+    end
+
     def guess(letter)
+        return :quit if letter == 'quit'
+        return :save if letter == 'save'
         return :duplicate_guess if @guessed_letters.include?(letter)
-        return :char_mismatch if !letter.match?(/[[:alpha:]]/)
+        return :char_mismatch if (!letter.match?(/[[:alpha:]]/) || letter.length > 1)
         @last_guess = letter
         @guessed_letters << letter
         if @word.include?(letter)
@@ -49,17 +72,11 @@ include Display
         game_won? || game_lost?
     end
 
-    def current_state
-        #serialize & return the current state of the game
-    end
-
     def game_won?
-        #determine if the game is won
         wrong_guesses < 6 && @word.chars.all? { |c| guessed_letters.include?(c) }
     end
 
     def game_lost?
-        #determine if the game is lost. 
         wrong_guesses >=6 
     end
 end

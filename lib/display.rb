@@ -41,7 +41,7 @@ include Curses
         ]
         limbs[0..guesses-1].each do |limb|
             Curses.setpos(limb[1], limb[2])
-            Curses.addstr(limb[0])
+            guesses == 0 ? Curses.addstr(" ") : Curses.addstr(limb[0])
         end
     end
   
